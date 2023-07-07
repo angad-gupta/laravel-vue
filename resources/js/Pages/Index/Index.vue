@@ -5,6 +5,7 @@
     <div>
         The message is {{ message }}
     </div>
+    
 
 </template>
 

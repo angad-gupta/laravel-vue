@@ -1,7 +1,7 @@
 <template>
     <div>Show</div>
 
-        {{ listing.street }}
+        {{ listing.street }}   {{ listing.baths }}   {{ listing.price }} 
 
 </template>
 
