@@ -17,13 +17,18 @@ class ListingController extends Controller
          $this->authorizeResource(Listing::class, 'listing');
      }
  
-    public function index()
+    public function index(Request $request)
     {
-        // dd(Listing::all());
+        $filters = $request->only([
+            'priceFrom', 'priceTo', 'beds', 'baths', 'areaFrom', 'areaTo'
+        ]);
+    
         return inertia(
             'Listing/Index',
             [
-                'listings' => Listing::all()
+                'filters' => $filters,
+                'listings' => Listing::mostRecent()
+                    ->filter($filters)->paginate(10)->withQueryString()
             ]
         );
     }
