@@ -11,15 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('listing_images', function (Blueprint $table) {
+        Schema::create('offers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            
-            $table->string('filename');
 
             $table->foreignIdFor(
-                \App\Models\Listing::class
+                \App\Models\Listing::class,
+                'listing_id'
             )->constrained('listings');
+            $table->foreignIdFor(
+                \App\Models\User::class,
+                'bidder_id'
+            )->constrained('users');
+
+            $table->unsignedInteger('amount');
+
+            $table->timestamp('accepted_at')->nullable();
+            $table->timestamp('rejected_at')->nullable();
         });
     }
 
@@ -28,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('listing_images');
+        Schema::dropIfExists('offers');
     }
 };
